@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="jsPsych-master/jspsych.js"></script>
+  <script src="jsPsych-master/plugins/jspsych-image-keyboard-response.js"></script>
+  <script src="jspsych-master/plugins/jspsych-html-button-response.js"></script>
+  <script src="jsPsych-master/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="jsPsych-master/plugins/jspsych-survey-text.js"></script>
+  <script src="jsPsych-master/plugins/jspsych-survey-multi-choice.js"></script>
+  <script src="jsPsych-master/plugins/jspsych-survey-likert.js"></script>
+  <script src="jsPsych-master/plugins/jspsych-html-slider-response.js"></script>
+  <link rel="stylesheet" href="jsPsych-master/css/jspsych.css"></link>
+  <style>
+    img {
+      width: 700px;
+    }
+  </style>
+</head>
+<body>
+</body>
+<script>
+
+ var timeline = [];  
+  
+   var welcome = {
+      type: "html-keyboard-response",
+      stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+    timeline.push(welcome);
+
+    /* define instructions trial */
+    var instructions1 = {
+      type: "html-keyboard-response",
+      stimulus: "<p style='text-align:left;'>In diesem Experiment geht es darum so schnell und so korrekt wie möglich Informationen von einem Diagramm abzulesen.</p>" +
+	  "<p style='text-align:left;'>Jede Aufgabe ist anders und die Darstellung der Informationen variiert. Manche Aufgaben erfordern Vergleiche, " + 
+	 "manche das berechnen einer Differenz und manche das berechnen eines Mittelwertes.</p> <p style='text-align:left;'>Jede Aufgabe hat drei Phasen:</p><p style='text-align:left;'><ol>" +
+			"<li style='text-align:left;'>Die Frage wird präsentiert. (Es geht weiter mit der Leertaste)</li>" +
+			"<li style='text-align:left;'>Das Diagramm wird präsentiert. (Es geht weiter mit der Leertaste)</li>" +
+			"<li style='text-align:left;'>Drei Antwortoptionen werden präsentiert. Dabei ist immer nur eine Antwortoption richtig. " +
+			"Achtung! Die Antwortoptionen werden nur 3 Sekunden lang angezeigt. Sie sollten daher die Antwort im Kopf haben, wenn Sie auf die Antwortseite kommen." +
+			"Antworten Sie nicht innerhalb der 3 Sekunden wird die Antwort als falsch gewertet.</li>" +
+		"</ol></p><p style='text-align:left;'>Es folgen zwei Probedurchläufe. Drücken Sie die Leertaste um Fortzufahren.</p>"
+    };
+    timeline.push(instructions1); 
+
+timeline_practice = [
+  {
+    "gra": "img/Beisp3V.jpg",
+    "que": "Was ist die Differenz zwischen Autos und LKWs?",
+    "xla": "Fahrzeuge",
+    "op1": "50",
+    "op2": "55",
+    "op3": "60"
+  },
+  {
+    "gra": "img/Beisp1P.jpg",
+    "que": "Was ist der Wert der Farbe Rot?",
+    "xla": "Farben",
+    "op1": "15",
+    "op2": "20",
+    "op3": "25"
+  },
+  {
+    "gra": "img/Beisp2R.jpg",
+    "que": "Ist der Mittelwert der angezeigten Spiel größer als 45?",
+    "xla": "Spiele",
+    "op1": "Ja",
+    "op2": "Nein",
+    "op3": "Gleich"
+  }
+]
+
+  var practice = {
+    timeline_variables: timeline_practice,
+    timeline: [
+      {
+        type: 'html-keyboard-response',
+        stimulus: function() { return '<p> Kategorie:  ' +jsPsych.timelineVariable('xla', true) + '</p><p>' +jsPsych.timelineVariable('que', true)+ '</p>' }
+		
+      },
+      {
+        type: 'image-keyboard-response',
+        stimulus: jsPsych.timelineVariable('gra')
+      },
+	  {
+	  
+ 		type: 'html-button-response',
+		stimulus: " ",
+		trial_duration: 3500,
+		choices: [function() { return '<p>'+jsPsych.timelineVariable('op1', true)+ '</p>'; },
+		function() { return '<p>'+jsPsych.timelineVariable('op2', true)+ '</p>'; }, 
+		function() { return '<p>'+jsPsych.timelineVariable('op3', true)+ '</p>'; }],
+		
+	  }
+    ],
+    randomize_order: true
+  };
+timeline.push(practice);	
+	
+    var instructions2 = {
+      type: "html-keyboard-response",
+      stimulus: "<p>Hoffentlich haben Sie das Prinzip verstanden, denn jetzt erhalten Sie die Testaufgaben. </p> " +
+"<p>Bearbeiten Sie die Aufgaben so schnell und korrekt wie möglich. Da wir uns dafür interessieren, wie lange es dauert die jeweiligen Aufagben " + 
+"zu bearbeiten ist es wichtig, dass Sie den Aufgaben für die nächsten 10min Ihre ungeteilte Aufmerksamkeit schenken. " + 
+"Wenn möglich Schalten Sie jetzt St&ouml;rquellen wie z.B. Handy und Radios aus.</p>" +
+"<p>Drücken Sie das Leerzeichen um mit den Aufgaben zu beginnen.</p>"
+    };
+    timeline.push(instructions2); 
+	
+timeline_variables = [{"gra":"img/A41120P.jpg","que":"Ist die Differenz aus Rehen und Pferden größer als aus Rehen und Eseln\r?","xla":"Huftiere","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A00001N.jpg","que":"Was ist der Mittelwert aus den angezeigten Flüssen?","xla":"Flüsse","op1":"60","op2":"65","op3":"70"},{"gra":"img/A00002V.jpg","que":"Was ist der Mittelwert aus den angezeigten Backwaren?","xla":"Backwaren","op1":"70","op2":"75","op3":"80"},{"gra":"img/A00032V.jpg","que":"Was ist der Mittelwert aus den Differenzen zwischen den Bäumen?","xla":"Bäume","op1":"30","op2":"35","op3":"40"},{"gra":"img/A00110N.jpg","que":"Ist die Differenz aus den beiden angezeigten Bieren größer als 35?","xla":"Biere","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A00132N.jpg","que":"Ist der Mittelwert aus den Differenzen der Gartengeräte größer als 35?","xla":"Gartengerät","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A00201V.jpg","que":"Was ist der Mittelwert aus den häufigsten und den seltesten Berufen?","xla":"Berufe","op1":"60","op2":"65","op3":"70"},{"gra":"img/A00202N.jpg","que":"Ist der Mittelwert aus allen Mustern größer als zwei Werte der Muster?","xla":"Muster","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A00210V.jpg","que":"Was ist die Differenz aus dem seltesten und dem nächst häufigeren Nahrungsmittel?","xla":"Nahrungsmittel","op1":"55","op2":"60","op3":"65"},{"gra":"img/A00311N.jpg","que":"Ist der Mittelwert aus den beiden größten Städte, größer als deren Differenz?  ","xla":"Städte","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A01010P.jpg","que":"Was ist die Differenz aus den angezeigten Möbel?","xla":"Möbel","op1":"40","op2":"45","op3":"50"},{"gra":"img/A01100R.jpg","que":"Was ist der Wert der häufigsten Schreibware?","xla":"Schreibwaren","op1":"70","op2":"75","op3":"80"},{"gra":"img/A01201P.jpg","que":"Was ist der Mittelwert aus den beiden seltensten Behälter?","xla":"Behälter","op1":"50","op2":"55","op3":"60"},{"gra":"img/A02001R.jpg","que":"Was ist der Mittelwert der angezeigten Formularen?","xla":"Formulare","op1":"20","op2":"25","op3":"30"},{"gra":"img/A02010R.jpg","que":"Was ist die Differenz aus den angezeigten Schiffsteilen?","xla":"Schiffsteile","op1":"10","op2":"15","op3":"20"},{"gra":"img/A02201R.jpg","que":"Was ist der Mittelwert aus den beiden häufigsten Abbildung?","xla":"Abbildung","op1":"50","op2":"55","op3":"60"},{"gra":"img/A02210R.jpg","que":"Was ist die Differenz aus der häufigsten und der seltesten Absprerrung?","xla":"Absperrungen","op1":"25","op2":"30","op3":"35"},{"gra":"img/A10110V.jpg","que":"Was ist die Differenz aus Flüssen und der nächst häufigeren Gewässer?","xla":"Gewässer","op1":"20","op2":"25","op3":"30"},{"gra":"img/A10200R.jpg","que":"Ist die Anzahl der Schulen die größste Anzahl unter allen angezeigten Gebäude?","xla":"Gebäude","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A11000R.jpg","que":"Was ist der Wert der Birnen?","xla":"Früchte","op1":"80","op2":"85","op3":"90"},{"gra":"img/A11100R.jpg","que":"Was ist der Wert der Verbingung die häufiger ist als die Pfade?","xla":"Verbindung","op1":"15","op2":"20","op3":"25"},{"gra":"img/A12110R.jpg","que":"Was ist die Differenz aus Hafer und dem häufigsten Getreide? ","xla":"Getreide","op1":"35","op2":"40","op3":"45"},{"gra":"img/A20001N.jpg","que":"Was ist der Mittelwert aus Bohnen und Erbsen?","xla":"Hülsenfrüchte","op1":"65","op2":"70","op3":"75"},{"gra":"img/A20010N.jpg","que":"Was ist die Differenz aus Wasser und Fruchtsaft?","xla":"Getränke","op1":"65","op2":"70","op3":"75"},{"gra":"img/A20100R.jpg","que":"Ist der Wert von Eiweiss größer als der Wert von Zucker?","xla":"Inhaltsstoffe","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A21001P.jpg","que":"Was ist der Mittelwert aus Granit und Mamor?","xla":"Gestein","op1":"20","op2":"25","op3":"30"},{"gra":"img/A22001R.jpg","que":"Was ist der Mittelwert aus Silber und Platin?","xla":"Edelmetalle","op1":"30","op2":"35","op3":"40"},{"gra":"img/A22010R.jpg","que":"Was ist die Differenz aus Nacken und Gesicht?","xla":"Oberkörper","op1":"10","op2":"15","op3":"20"},{"gra":"img/A22110R.jpg","que":"Ist die Differenz aus Vespen und Müken größer als 15? ","xla":"Insekten","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A30011N.jpg","que":"Was ist die Differenz aus Laken und dem Mittelwert von Kissen und Decken?","xla":"Bettwäsche","op1":"20","op2":"25","op3":"30"},{"gra":"img/A31011P.jpg","que":"Was ist die Differenz aus Vierecken und dem Mittelwert von Dreiecken und Quatraten?","xla":"Formen","op1":"15","op2":"20","op3":"25"},{"gra":"img/A31101P.jpg","que":"Ist der Mittelwert aus Gehen und Laufen größer als der Wert von Rennen?","xla":"Gangarten","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A33101R.jpg","que":"Ist der Mittelwert aus Fischen und Kraben größer als die Anzahl der Hummer?","xla":"Meeresbewohner","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A33110R.jpg","que":"Ist die Differenz aus Shampoo und Seife größer als der Wert der Handtücher?  ","xla":"Badartikel","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A33111R.jpg","que":"Ist der Mittelwert aus Hunden und dem häufigsten Tier größer als die Differenz aus Hunden und Hasen?","xla":"Tiere","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A40102V.jpg","que":"Ist der Mittelwert aus Sommer und Frühling größer als der Mittelwert aus Sommer und Winter?","xla":"Jahreszeit","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A40120N.jpg","que":"Ist die Differenz aus Eisen und Kupfer größer als die Differenz aus Eisen und Zink","xla":"Metalle ","op1":"Ja","op2":"Nein","op3":"Gleich"},{"gra":"img/A43120R.jpg","que":"Ist die Differenz aus Boxen und Judo größer als die Differenzaus Boxen und Ringen\r?","xla":"Kampfsport","op1":"Ja","op2":"Nein","op3":"Gleich"}]
+;
+
+  var node = {
+    timeline_variables: timeline_variables,
+    timeline: [
+      {
+        type: 'html-keyboard-response',
+        stimulus: function() { return '<p> Kategorie:  ' +jsPsych.timelineVariable('xla', true) + '</p><p>' +jsPsych.timelineVariable('que', true)+ '</p>' }
+		
+      },
+      {
+        type: 'image-keyboard-response',
+        stimulus: jsPsych.timelineVariable('gra')
+      },
+	  {
+	  
+ 		type: 'html-button-response',
+		stimulus: " ",
+		trial_duration: 3500,
+		choices: [function() { return '<p>'+jsPsych.timelineVariable('op1', true)+ '</p>'; },
+		function() { return '<p>'+jsPsych.timelineVariable('op2', true)+ '</p>'; }, 
+		function() { return '<p>'+jsPsych.timelineVariable('op3', true)+ '</p>'; }],
+		
+	  }
+    ],
+    /*randomize_order: true*/
+  };
+timeline.push(node);
+
+var scale = ["trifft zu", "trifft eher zu", "teils-teils", "trifft eher nicht zu ", "trifft nicht zu"];
+  var strategy = {
+      type: 'survey-likert',
+      questions: 
+	 [{prompt: "Ich habe das wenn möglich Ergebnis geschätzt.", labels: scale, required: true}, 
+	  {prompt: "Ich habe wenn möglich den Mittelwert am Diagramm abgelesen anstatt ihn auszurechnen.", labels: scale, required: true}, 
+	  {prompt: "Ich habe wenn möglich die Differenz am Digramm abgelesen anstatt sie auszurechnen.", labels: scale, required: true},
+	  {prompt: "Ich habe mir Mühe gegeben die Aufgaben zu lösen.", labels: scale, required: true},
+	  {prompt: "Ich bin zuversichtlich, dass ich die Aufgaben richtig beantwortet habe.", labels: scale, required: true},
+	  {prompt: "Mir war immer klar was ich machen muste um die Aufgaben zu lösen.", labels: scale, required: true},
+	  {prompt: "Die Aufgaben waren schwer zu beantworten.", labels: scale, required: true}]
+  };
+timeline.push(strategy);
+  
+  var survey_block1 = {
+      type: 'survey-text',
+      questions: [{prompt: 'Wie alt sind Sie?',
+               value: '   Jahr', rows: 1, columns: 3},
+               {prompt: 'Studienfach:',
+                value: '  ', rows: 1, columns: 50}],
+  };
+timeline.push(survey_block1);
+
+var page_1_options = ["Männlich", "Weiblich"];
+
+var survey_block2 = {
+      type: 'survey-multi-choice',
+      questions: [{prompt: "Geschlecht", options: page_1_options, required:true}],
+  };
+timeline.push(survey_block2);
+  
+  jsPsych.init({
+    timeline: timeline,
+
+    preload_images:["img/A41120P.jpg","img/A00001N.jpg","img/A00002V.jpg","img/A00032V.jpg","img/A00110N.jpg","img/A00132N.jpg","img/A00201V.jpg","img/A00202N.jpg","img/A00210V.jpg","img/A00311N.jpg","img/A01010P.jpg","img/A01100R.jpg","img/A01201P.jpg","img/A02001R.jpg","img/A02010R.jpg","img/A02201R.jpg","img/A02210R.jpg","img/A10110V.jpg","img/A10200R.jpg","img/A11000R.jpg","img/A11100R.jpg","img/A12110R.jpg","img/A20001N.jpg","img/A20010N.jpg","img/A20100R.jpg","img/A21001P.jpg","img/A22001R.jpg","img/A22010R.jpg","img/A22110R.jpg","img/A30011N.jpg","img/A31011P.jpg","img/A31101P.jpg","img/A33101R.jpg","img/A33110R.jpg","img/A33111R.jpg","img/A40102V.jpg","img/A40120N.jpg","img/A43120R.jpg"]
+,
+    on_finish: function() {
+      jsPsych.data.displayData();
+    },
+    default_iti: 250
+  });
+
+</script>
+
+</html>
